@@ -17,4 +17,4 @@ class Spreadsheet {
 }
 
 
-module.exports.Spreadsheet = Spreadsheet;
+module.exports = {Spreadsheet};

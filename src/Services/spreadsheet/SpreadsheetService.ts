@@ -1,14 +1,13 @@
-import { Spreadsheet } from "../../entities/Spreadsheet";
-import { ISpreadsheetRepository } from "../../frameworks/repositories/inMemory/spreadsheetsRepository";
+const Entity = require("../../entities/Spreadsheet");
 
 class SpreadsheetService {
   spreadsheetRepository;
 
-  constructor(sheetRepository: ISpreadsheetRepository) {
+  constructor(sheetRepository) {
     this.spreadsheetRepository = sheetRepository;
   }
 
-  addSpreadsheet = (spreadsheet: Spreadsheet) => {
+  addSpreadsheet = (spreadsheet: typeof Entity.Spreadsheet) => {
     return this.spreadsheetRepository.add(spreadsheet);
   };
 
@@ -21,4 +20,6 @@ class SpreadsheetService {
   };
 }
 
-export { SpreadsheetService };
+module.exports = {
+  SpreadsheetService,
+};

@@ -7,7 +7,7 @@
     "build":"tsc app.ts",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "start": "node ./dist/app.js",
-    "start:dev": "node -r ts-node/register ./src/index.ts"
+    "start:dev": "node -r ts-node/register ./src/app.ts"
   },
   "jest": {
     "testEnvironment": "jest-environment-node",
