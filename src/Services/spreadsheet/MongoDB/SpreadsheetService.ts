@@ -1,4 +1,4 @@
-const Entity = require("../../entities/Spreadsheet");
+const Spreadsheet = require("../../../entities/Spreadsheet");
 
 class SpreadsheetService {
   spreadsheetRepository;
@@ -7,7 +7,7 @@ class SpreadsheetService {
     this.spreadsheetRepository = sheetRepository;
   }
 
-  addSpreadsheet = (spreadsheet: typeof Entity.Spreadsheet) => {
+  addSpreadsheet = (spreadsheet: typeof Spreadsheet.Spreadsheet) => {
     return this.spreadsheetRepository.add(spreadsheet);
   };
 
@@ -18,8 +18,13 @@ class SpreadsheetService {
   findSpreadsheetByID = (id: string) => {
     return this.spreadsheetRepository.findByID(id);
   };
+
+  getAllSpreadsheets = () => {
+    return this.spreadsheetRepository.getAll();
+  };
 }
 
 module.exports = {
   SpreadsheetService,
 };
+export {};

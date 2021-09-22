@@ -8,13 +8,12 @@ class Spreadsheet {
   public spreadsheetData;
   public readOnlySpreadsheet: string;
 
-
-  constructor({spreadsheetID,spreadsheetData}:ISpreadsheet) {
+  constructor({ spreadsheetID, spreadsheetData }: ISpreadsheet) {
     this.spreadsheetID = spreadsheetID;
     this.spreadsheetData = spreadsheetData;
     this.readOnlySpreadsheet = `r.${spreadsheetID}`;
   }
 }
 
-
-module.exports = {Spreadsheet};
+module.exports = { Spreadsheet };
+export {};

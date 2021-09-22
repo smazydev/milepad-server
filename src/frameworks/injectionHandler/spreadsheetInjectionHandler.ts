@@ -1,18 +1,21 @@
-const Repository = require("../../frameworks/repositories/inMemory/spreadsheetsRepository");
-const Service = require("../../Services/spreadsheet/SpreadsheetService");
+const Repository = require("../../frameworks/repositories/MongoDB/spreadsheetsRepository");
+const Service = require("../../Services/spreadsheet/MongoDB/SpreadsheetService");
 
-const spreadsheetInjectionHandler = () => {
-  let spreadsheetService, spreadsheetRepository;
-  if (spreadsheetService && spreadsheetRepository) {
-    console.log("inside the if statement of injection handler");
-    return spreadsheetService;
-  } else {
-    spreadsheetRepository = new Repository.SpreadsheetRepository();
-    spreadsheetService = new Service.SpreadsheetService(spreadsheetRepository);
-    console.log(
-      "Inside the else statement of the spreadsheet injection handler"
-    );
+class SpreadsheetServiceSingleton {
+  private static spreadsheetService: SpreadsheetServiceSingleton;
+
+  private constructor() {}
+
+  public static getInstance(): SpreadsheetServiceSingleton {
+    if (!SpreadsheetServiceSingleton.spreadsheetService) {
+      const spreadsheetRepository = new Repository.SpreadsheetRepository();
+      SpreadsheetServiceSingleton.spreadsheetService =
+        new Service.SpreadsheetService(spreadsheetRepository);
+    }
+
+    return SpreadsheetServiceSingleton.spreadsheetService;
   }
-};
+}
 
-module.exports = { spreadsheetInjectionHandler };
+module.exports = { SpreadsheetServiceSingleton };
+export {};
