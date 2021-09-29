@@ -1,4 +1,4 @@
-const Spreadsheet = require("../../../entities/Spreadsheet");
+const { Spreadsheet } = require("../../../entities/Spreadsheet");
 
 class SpreadsheetService {
   spreadsheetRepository;
@@ -7,7 +7,7 @@ class SpreadsheetService {
     this.spreadsheetRepository = sheetRepository;
   }
 
-  addSpreadsheet = (spreadsheet: typeof Spreadsheet.Spreadsheet) => {
+  addSpreadsheet = (spreadsheet: typeof Spreadsheet) => {
     return this.spreadsheetRepository.add(spreadsheet);
   };
 
@@ -21,6 +21,10 @@ class SpreadsheetService {
 
   getAllSpreadsheets = () => {
     return this.spreadsheetRepository.getAll();
+  };
+
+  updateSpreadsheet = (spreadsheetID, spreadsheetData) => {
+    return this.spreadsheetRepository.update(spreadsheetID, spreadsheetData);
   };
 }
 

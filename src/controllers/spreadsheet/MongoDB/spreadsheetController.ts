@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import e, { Request, Response } from "express";
 const express = require("express");
 const injectionHandler = require("../../../frameworks/injectionHandler/spreadsheetInjectionHandler");
 const { Spreadsheet } = require("../../../entities/Spreadsheet");
@@ -32,15 +32,41 @@ router.post("/spreadsheets/delete", async (req: Request, res: Response) => {
   res.send({});
 });
 
+router.post("/spreadsheets/update", async (req: Request, res: Response) => {
+  const spreadsheetService =
+    injectionHandler.SpreadsheetServiceSingleton.getInstance();
+  const { spreadsheetID, spreadsheetData } = req.body;
+  const response = await spreadsheetService.updateSpreadsheet(
+    spreadsheetID,
+    spreadsheetData
+  );
+  res.send(response);
+});
+
 router.post("/spreadsheets/create", async (req: Request, res: Response) => {
   const spreadsheetService =
     injectionHandler.SpreadsheetServiceSingleton.getInstance();
-  const newSpreadsheet = new Spreadsheet(req.body);
-  console.log(newSpreadsheet);
-  const adddedSpreadsheet = await spreadsheetService.addSpreadsheet(
-    newSpreadsheet
-  );
-  res.send(adddedSpreadsheet);
+  const { id } = req.body;
+  const newSpreadsheet = new Spreadsheet({
+    spreadsheetID: id,
+  });
+
+  const getData = await spreadsheetService.findSpreadsheetByID(id);
+
+  if (!(getData === undefined || getData.length === 0)) {
+    if (getData[0].spreadsheetID === id) {
+      res.status(200).send(getData);
+    }
+  } else {
+    try {
+      const addedSpreadsheet = await spreadsheetService.addSpreadsheet(
+        newSpreadsheet
+      );
+      res.status(200).send(`New Spreadsheet created! ${addedSpreadsheet}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 });
 
 module.exports = router;

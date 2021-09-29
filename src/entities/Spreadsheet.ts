@@ -8,9 +8,9 @@ class Spreadsheet {
   public spreadsheetData;
   public readOnlySpreadsheet: string;
 
-  constructor({ spreadsheetID, spreadsheetData }: ISpreadsheet) {
+  constructor({ spreadsheetID }) {
     this.spreadsheetID = spreadsheetID;
-    this.spreadsheetData = spreadsheetData;
+    this.spreadsheetData = [];
     this.readOnlySpreadsheet = `r.${spreadsheetID}`;
   }
 }

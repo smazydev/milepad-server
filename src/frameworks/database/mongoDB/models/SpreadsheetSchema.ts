@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
   spreadsheetID: String,
-  spreadsheetData: Object,
+  spreadsheetData: Array,
   readOnlySpreadsheet: String,
 });
 

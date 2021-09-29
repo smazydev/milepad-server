@@ -40,7 +40,7 @@ class SpreadsheetRepository implements ISpreadsheetRepository {
    * @param id {string} is the id of the spreadsheet that you want to find. It returns the spreadsheet Object that holds the data.
    */
   findByID = (id: string) => {
-    return SpreadsheetModel.find({spreadsheetID:id});
+    return SpreadsheetModel.find({ spreadsheetID: id });
   };
 
   /**
@@ -48,6 +48,43 @@ class SpreadsheetRepository implements ISpreadsheetRepository {
    */
   getAll = () => {
     return SpreadsheetModel.find({});
+  };
+
+  update = async (id, spreadsheetData) => {
+    // if (spreadsheetData.length === 0) {
+    //   return "no data received"
+    // }
+
+    if (spreadsheetData.length === 0) {
+      return "no data received";
+    }
+
+    const document = await SpreadsheetModel.find({ spreadsheetID: id });
+
+    const spreadsheetDataArr = document[0].spreadsheetData;
+
+    //IF THERE IS NO DATA IN ARRAY JUST PUSH IT IN
+    if (spreadsheetDataArr.length === 0) {
+      spreadsheetDataArr.push(spreadsheetData);
+      document[0].save();
+      console.log(spreadsheetDataArr.length);
+      return "written";
+    } else {
+    
+      const index = spreadsheetDataArr.findIndex((item) => {
+        return item.name === spreadsheetData.name;
+      });
+
+      spreadsheetDataArr[index] = spreadsheetData;
+
+      if (index === -1) {
+        spreadsheetDataArr.push(spreadsheetData);
+      }
+
+      console.log(index);
+
+      document[0].save();
+    }
   };
 }
 
