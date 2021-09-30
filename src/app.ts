@@ -39,6 +39,8 @@ start();
 
 io.on("connection", (socket) => {
   console.log("a user connected:", socket.id);
+  console.log("user count: "+ socket.adapter.sids.size);
+  
 
 
   socket.on("room-id", (id) => {
@@ -89,6 +91,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
+    console.log("user count: "+ socket.adapter.sids.size);
   });
 });
 
