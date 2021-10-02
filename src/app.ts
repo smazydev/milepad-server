@@ -43,8 +43,8 @@ io.on("connection", (socket) => {
   
 
   socket.on("comments", ({ id, msg }) => {
-    console.log(id,msg)
-    socket.to(id).emit("comment", msg);
+    socket.to(id).emit("comments", msg);
+    console.log(id,msg);
   });
 
   socket.on("room-id", (id) => {
