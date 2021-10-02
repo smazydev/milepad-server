@@ -40,6 +40,10 @@ start();
 io.on("connection", (socket) => {
   console.log("a user connected:", socket.id);
 
+  socket.on("comments", ({ id, msg }) => {
+    console.log(id,msg)
+    socket.to(id).emit("comment", msg);
+  });
 
   socket.on("room-id", (id) => {
     socket.join(id);
@@ -70,11 +74,10 @@ io.on("connection", (socket) => {
 
   socket.on("change", (sData) => {
     const { id, data } = sData;
-   // console.log(data);
-   // console.log(id)
+    // console.log(data);
+    // console.log(id)
     // io.to(id).emit("change", data);
-    socket.to(id).emit("change",data)
-
+    socket.to(id).emit("change", data);
   });
 
   /*   socket.on("update-cell-data", (data) => {
