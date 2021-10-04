@@ -49,6 +49,8 @@ io.on("connection", (socket) => {
 
   socket.on("room-id", (id) => {
     socket.join(id);
+    console.log("BUGGA CHUGGA", io.sockets.adapter.rooms.get(id));
+    io.to(id).emit("clients", io.sockets.adapter.rooms.get(id));
   });
 
   socket.on("cell-selected", (data) => {
