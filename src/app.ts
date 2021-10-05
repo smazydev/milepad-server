@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const spreadsheetInjection = require("./frameworks/injectionHandler/spreadsheetInjectionHandler");
-const spreadsheetRouter = require("./controllers/spreadsheet/MongoDB/spreadsheetController");
+const milepadInjection = require("./frameworks/injectionHandler/milepadInjectionHandler");
+const milepadRouter = require("./controllers/spreadsheet/MongoDB/milepadController");
 const mongoose = require("./frameworks/database/mongoDB/mongoDB");
 const cors = require("cors");
 const { createServer } = require("http");
@@ -23,12 +23,12 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(spreadsheetRouter);
+app.use(milepadRouter);
 
 const start = () => {
   server.listen(PORT, () => {
     console.log("Server listening on: ", PORT);
-    spreadsheetInjection.SpreadsheetServiceSingleton.getInstance();
+    milepadInjection.MilepadServiceSingleton.getInstance();
     // mongoose.connectToMongoDB();
   });
 };
