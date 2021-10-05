@@ -29,7 +29,7 @@ const start = () => {
   server.listen(PORT, () => {
     console.log("Server listening on: ", PORT);
     spreadsheetInjection.SpreadsheetServiceSingleton.getInstance();
-    mongoose.connectToMongoDB();
+    // mongoose.connectToMongoDB();
   });
 };
 
@@ -43,12 +43,13 @@ io.on("connection", (socket) => {
   
 
   socket.on("comments", ({ id, msg }) => {
-    socket.to(id).emit("comments", msg);
-    console.log(id,msg);
+    socket.to(id).emit("comments", {id:socket.id,msg: msg});
+    console.log(id,msg, "Check Commit");
   });
 
   socket.on("room-id", (id) => {
     socket.join(id);
+    console.log(id, "myId")
     console.log("BUGGA CHUGGA", io.sockets.adapter.rooms.get(id));
     io.to(id).emit("clients", io.sockets.adapter.rooms.get(id));
   });
