@@ -13,6 +13,7 @@ router.get("/pad/get-all", async (req: Request, res: Response) => {
 });
 
 router.get("/pad/:id", async (req: Request, res: Response) => {
+  console.log("get data")
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
   const milepadData = await milepadService.findMilepadByID(
@@ -33,6 +34,7 @@ router.post("/pad/delete", async (req: Request, res: Response) => {
 });
 
 router.post("/pad/update", async (req: Request, res: Response) => {
+  console.log("update")
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
   const { milepadID, milepadData } = req.body;
@@ -44,6 +46,7 @@ router.post("/pad/update", async (req: Request, res: Response) => {
 });
 
 router.post("/pad/create", async (req: Request, res: Response) => {
+  console.log("create")
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
   const { id } = req.body;
