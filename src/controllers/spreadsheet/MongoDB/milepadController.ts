@@ -5,23 +5,23 @@ const { Milepad } = require("../../../entities/Milepad");
 
 const router = express.Router();
 
-router.get("/milepad/get-all", async (req: Request, res: Response) => {
+router.get("/pad/get-all", async (req: Request, res: Response) => {
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
-  const milepads = await milepadService.getAllSpreadsheets();
-  res.send(milepads);
+  //const milepads = await milepadService.getAllSpreadsheets();
+  res.send({});
 });
 
-router.get("/milepad/:id", async (req: Request, res: Response) => {
+router.get("/pad/:id", async (req: Request, res: Response) => {
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
-  const milepadData = await milepadService.findSpreadsheetByID(
+  const milepadData = await milepadService.findMilepadByID(
     req.params.id
   );
   res.send(milepadData);
 });
 
-router.post("/milepad/delete", async (req: Request, res: Response) => {
+router.post("/pad/delete", async (req: Request, res: Response) => {
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
   const { milepadID } = req.body;
@@ -32,18 +32,18 @@ router.post("/milepad/delete", async (req: Request, res: Response) => {
   res.send({});
 });
 
-router.post("/milepad/update", async (req: Request, res: Response) => {
+router.post("/pad/update", async (req: Request, res: Response) => {
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
   const { milepadID, milepadData } = req.body;
-  const response = await milepadService.updateSpreadsheet(
+  const response = await milepadService.updateMilepad(
     milepadID,
     milepadData
   );
   res.send(response);
 });
 
-router.post("/milepad/create", async (req: Request, res: Response) => {
+router.post("/pad/create", async (req: Request, res: Response) => {
   const milepadService =
     injectionHandler.MilepadServiceSingleton.getInstance();
   const { id } = req.body;
@@ -51,7 +51,7 @@ router.post("/milepad/create", async (req: Request, res: Response) => {
     milepadID: id,
   });
 
-  const getData = await milepadService.findSpreadsheetByID(id);
+  const getData = await milepadService.findMilepadByID(id);
 
   if (!(getData === undefined || getData.length === 0)) {
     if (getData[0].milepadID === id) {
