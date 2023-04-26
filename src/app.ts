@@ -29,7 +29,7 @@ const start = () => {
   server.listen(PORT, () => {
     console.log("Server listening on: ", PORT);
     milepadInjection.MilepadServiceSingleton.getInstance();
-    // mongoose.connectToMongoDB();
+     mongoose.connectToMongoDB();
   });
 };
 
